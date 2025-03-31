@@ -1,0 +1,72 @@
+/* Estilos para el formulario de Motos */
+form.motos-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+form.motos-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form.motos-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+form.motos-form input,
+form.motos-form select,
+form.motos-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+form.motos-form input:focus,
+form.motos-form select:focus,
+form.motos-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+form.motos-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form.motos-form button:hover {
+    background-color: #0056b3;
+}
+
+form.motos-form .form-group {
+    margin-bottom: 15px;
+}
+
+form.motos-form .form-group.inline {
+    display: flex;
+    justify-content: space-between;
+}
+
+form.motos-form .form-group.inline input {
+    width: 48%;
+}

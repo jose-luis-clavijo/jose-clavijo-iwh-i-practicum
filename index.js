@@ -53,6 +53,7 @@ app.post('/motos', (req, res) => {
                 console.error(error);
             });
     } catch (error) {
+        res.render('listMotos', { title: 'Error de carga | HubSpot APIs', message: 'Error al crear una nueva moto' });
         console.error(error);
     }
 
@@ -67,9 +68,9 @@ app.get('/listMotos', async (req, res) => {
     try {
         const resp = await axios.get(motos, { headers });
         const data = resp.data.results;
-        console.log(data);
         res.render('listMotos', { title: 'Lista de motos | HubSpot APIs', data });
     } catch (error) {
+        res.render('listMotos', { title: 'Error de carga | HubSpot APIs', message: 'Error al cargar la lista de motos' });
         console.error(error);
     }
 });

@@ -2,12 +2,13 @@ doctype html
 html
     head
         title= title
-        link(rel="stylesheet", href="/styles.css")
+        link(rel="stylesheet", href="/css/style.css")
+        link(rel="stylesheet", href="/css/listMotos.css")
     body
         h1= title
-        .cards-container
+        .cards-container.list-motos-container
             each moto in data
-                .card
+                .card.moto-card
                     h2= moto.properties.marca + " " + moto.properties.modelo
                     p ID: #{moto.id}
                     p Cilindros: #{moto.properties.cantidad_de_cilindros}

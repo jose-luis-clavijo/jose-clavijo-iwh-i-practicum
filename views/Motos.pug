@@ -2,9 +2,11 @@ doctype html
 html
     head
         title Formulario de Motos
+        link(rel="stylesheet", href="/css/formsStyles.css")
+        link(rel="stylesheet", href="/css/style.css")
     body
         h1 Formulario de Registro de Motos
-        form(action="/motos" method="POST")
+        form(action="/motos" method="POST").motos-form
             div
                 label(for="marca") Marca de Moto:
                 input(type="text" id="marca" name="marca" required)
