@@ -25,9 +25,9 @@ app.get('/edit/:id', async (req, res) => {
     try {
         const resp = await axios.get(motos, { headers });
         const data = resp.data;
-        res.render('Motos', { title: 'Custom Objects Motos | HubSpot APIs',method:"put",path:`/motos/${id}`,moto:data });
+        res.render('Motos', { title: 'Edit custom Objects Motos | HubSpot APIs',method:"put",path:`/motos/${id}`,moto:data });
     } catch (error) {
-        res.render('Motos', { title: 'Error de carga | HubSpot APIs', message: 'Error al cargar la moto' });
+        res.render('Motos', { title: 'Error de carga | HubSpot APIs', message: 'Error al cargar los datos de la moto' });
         console.error(error);
     }
 
