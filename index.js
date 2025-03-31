@@ -12,7 +12,58 @@ app.use(express.json());
 const hubspotKey=process.env.HUBSPOTKEY;
 
 app.get('/', (req, res) => {
-    res.render('Motos', { title: 'Custom Objects Motos | HubSpot APIs' });
+    res.render('Motos', { title: 'Custom Objects Motos | HubSpot APIs',method:"post",path:"/motos",moto:{} });
+});
+
+app.get('/edit/:id', async (req, res) => {
+    const id = req.params.id;
+    const motos = `https://api.hubspot.com/crm/v3/objects/2-42707827/${id}?properties=marca,modelo,cantidad_de_cilindros,cilindrage,segmento`;
+    const headers = {
+        Authorization: `Bearer ${hubspotKey}`,
+        'Content-Type': 'application/json'
+    }
+    try {
+        const resp = await axios.get(motos, { headers });
+        const data = resp.data;
+        res.render('Motos', { title: 'Custom Objects Motos | HubSpot APIs',method:"put",path:`/motos/${id}`,moto:data });
+    } catch (error) {
+        res.render('Motos', { title: 'Error de carga | HubSpot APIs', message: 'Error al cargar la moto' });
+        console.error(error);
+    }
+
+});
+
+app.post('/motos/:id', (req, res) => {
+    const id = req.params.id;
+    dataForm = req.body;
+    const data = {
+        "properties": {
+            "marca": dataForm.marca,
+            "modelo": dataForm.modelo,
+            "cantidad_de_cilindros":dataForm.cilindros,
+            "cilindrage": dataForm.cilindrage,
+            "segmento": dataForm.segmento,
+        }
+    };
+
+    const headers = {
+        Authorization: `Bearer ${hubspotKey}`,
+        'Content-Type': 'application/json'
+    };
+    try {
+        axios.patch(`https://api.hubspot.com/crm/v3/objects/2-42707827/${id}`, data, { headers })
+            .then(response => {
+                console.log(response.data);
+                res.redirect('/listMotos');
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    } catch (error) {
+        res.render('listMotos', { title: 'Error de carga | HubSpot APIs', message: 'Error al actualizar una moto' });
+        console.error(error);
+    }
+
 });
 
 app.post('/motos', (req, res) => {

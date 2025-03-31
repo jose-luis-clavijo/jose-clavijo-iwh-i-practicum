@@ -6,27 +6,32 @@ html
         link(rel="stylesheet", href="/css/style.css")
     body
         h1 Formulario de Registro de Motos
-        form(action="/motos" method="POST").motos-form
+        form(action=path method="post").motos-form
+            if method=="put"
+                input(type="hidden" name="idHs" value= moto.id) 
             div
                 label(for="marca") Marca de Moto:
-                input(type="text" id="marca" name="marca" required)
+                input(type="text" id="marca" name="marca" required value= method==="put" ? moto.properties.marca : "")
             div
                 label(for="modelo") Modelo:
-                input(type="text" id="modelo" name="modelo" required)
+                input(type="text" id="modelo" name="modelo" required value= method==="put" ? moto.properties.modelo : "")
             div
                 label(for="cilindros") Cantidad de Cilindros:
-                input(type="number" id="cilindros" name="cilindros" min="1" required)
+                input(type="number" id="cilindros" name="cilindros" min="1" required value= method==="put" ? moto.properties.cantidad_de_cilindros : "")
             div
                 label(for="cilindrage") Cilindraje:
-                input(type="text" id="cilindrage" name="cilindrage" required)
+                input(type="text" id="cilindrage" name="cilindrage" required value= method==="put" ? moto.properties.cilindrage : "")
             div
                 label(for="segmento") Segmento:
                 select(id="segmento" name="segmento" required)
-                    option(value="bajo cc") Bajo CC
-                    option(value="medio cc") Medio CC
-                    option(value="alto cc") Alto CC
-            div 
-                label(for="idContacto") Id del Contacto:
-                input(type="text" id="idContacto" name="idContacto" required)
+                    option(value="bajo cc" selected= method==="put"? moto.properties.segmento==="bajo cc"?true:false :false) Bajo CC
+                    option(value="medio cc" selected= method==="put"? moto.properties.segmento==="medio cc"?true:false :false) Medio CC
+                    option(value="alto cc" selected= method==="put"? moto.properties.segmento==="alto cc"?true:false :false) Alto CC
+            if method=="post"
+                div 
+                    label(for="idContacto") Id del Contacto:
+                    input(type="text" id="idContacto" name="idContacto" required )
             div
                 button(type="submit") Enviar
+            div
+                a(href="/listMotos") Ver la lista de motos

@@ -70,3 +70,16 @@ form.motos-form .form-group.inline {
 form.motos-form .form-group.inline input {
     width: 48%;
 }
+form.motos-form a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+form.motos-form a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
