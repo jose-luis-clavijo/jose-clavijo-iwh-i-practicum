@@ -59,7 +59,7 @@ app.post('/motos', (req, res) => {
 });
 
 app.get('/listMotos', async (req, res) => {
-    const motos = 'https://api.hubspot.com/crm/v3/objects/2-42707827';
+    const motos = 'https://api.hubspot.com/crm/v3/objects/2-42707827?properties=marca,modelo,cantidad_de_cilindros,cilindrage,segmento';
     const headers = {
         Authorization: `Bearer ${hubspotKey}`,
         'Content-Type': 'application/json'
@@ -67,6 +67,7 @@ app.get('/listMotos', async (req, res) => {
     try {
         const resp = await axios.get(motos, { headers });
         const data = resp.data.results;
+        console.log(data);
         res.render('listMotos', { title: 'Lista de motos | HubSpot APIs', data });
     } catch (error) {
         console.error(error);
