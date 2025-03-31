@@ -1,11 +1,76 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const app = express();
+
 
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+const hubspotKey=process.env.HUBSPOTKEY;
+
+app.get('/', (req, res) => {
+    res.render('Motos', { title: 'Custom Objects Motos | HubSpot APIs' });
+});
+
+app.get('/motos', (req, res) => {
+    const data = {
+        "associations": [
+            {
+              "types": [
+                {
+                  "associationCategory": "USER_DEFINED",
+                  "associationTypeId": 17
+                }
+              ],
+              "to": {
+                "id": req.query.idContacto,
+              }
+        }],
+        "properties": {
+            "marca": req.query.marca,
+            "modelo": req.query.modelo,
+            "cantidad_de_cilindros":req.query.cilindros,
+            "cilindrage": req.query.cilindrage,
+            "segmento": req.query.segmento,
+        }
+    };
+
+    const headers = {
+        Authorization: `Bearer ${hubspotKey}`,
+        'Content-Type': 'application/json'
+    };
+    try {
+        axios.post('https://api.hubapi.com/crm/v3/objects/2-42707827', data, { headers })
+            .then(response => {
+                console.log(response.data);
+                res.redirect('back');
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    } catch (error) {
+        console.error(error);
+    }
+
+});
+
+app.get('/motos', async (req, res) => {
+    const motos = 'https://api.hubspot.com/crm/v3/objects/2-42707827';
+    const headers = {
+        Authorization: `Bearer ${hubspotKey}`,
+        'Content-Type': 'application/json'
+    }
+    try {
+        const resp = await axios.get(motos, { headers });
+        const data = resp.data.results;
+        res.render('Motos', { title: 'Motos | HubSpot APIs', data });
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 // * Please DO NOT INCLUDE the private app access token in your repo. Don't do this practicum in your normal account.
 const PRIVATE_APP_ACCESS = '';

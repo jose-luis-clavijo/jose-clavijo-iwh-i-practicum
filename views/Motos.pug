@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        title Formulario de Motos
+    body
+        h1 Formulario de Registro de Motos
+        form(action="/motos" method="POST")
+            div
+                label(for="marca") Marca de Moto:
+                input(type="text" id="marca" name="marca" required)
+            div
+                label(for="modelo") Modelo:
+                input(type="text" id="modelo" name="modelo" required)
+            div
+                label(for="cilindros") Cantidad de Cilindros:
+                input(type="number" id="cilindros" name="cilindros" min="1" required)
+            div
+                label(for="cilindrage") Cilindraje:
+                input(type="text" id="cilindrage" name="cilindrage" required)
+            div
+                label(for="segmento") Segmento:
+                select(id="segmento" name="segmento" required)
+                    option(value="bajo-cc") Bajo CC
+                    option(value="medio-cc") Medio CC
+                    option(value="alto-cc") Alto CC
+            div 
+                label(for="idContacto") Id del Contacto:
+                input(type="text" id="idContacto" name="idContacto" required)
+            div
+                button(type="submit") Enviar
