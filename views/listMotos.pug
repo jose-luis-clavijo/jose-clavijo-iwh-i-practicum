@@ -8,9 +8,9 @@ html
         .cards-container
             each moto in data
                 .card
-                    h2= moto.marca + " " + moto.modelo
+                    h2= moto.properties.marca + " " + moto.properties.modelo
                     p ID: #{moto.id}
-                    p Cilindros: #{moto.cantidad_de_cilindros}
-                    p Cilindraje: #{moto.cilindrage}
-                    p Segmento: #{moto.segmento}
+                    p Cilindros: #{moto.properties.cantidad_de_cilindros}
+                    p Cilindraje: #{moto.properties.cilindrage}
+                    p Segmento: #{moto.properties.segmento}
         a(href="/motos") Volver a crear una moto

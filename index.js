@@ -15,7 +15,8 @@ app.get('/', (req, res) => {
     res.render('Motos', { title: 'Custom Objects Motos | HubSpot APIs' });
 });
 
-app.get('/motos', (req, res) => {
+app.post('/motos', (req, res) => {
+    dataForm = req.body;
     const data = {
         "associations": [
             {
@@ -26,15 +27,15 @@ app.get('/motos', (req, res) => {
                 }
               ],
               "to": {
-                "id": req.query.idContacto,
+                "id": dataForm.idContacto,
               }
         }],
         "properties": {
-            "marca": req.query.marca,
-            "modelo": req.query.modelo,
-            "cantidad_de_cilindros":req.query.cilindros,
-            "cilindrage": req.query.cilindrage,
-            "segmento": req.query.segmento,
+            "marca": dataForm.marca,
+            "modelo": dataForm.modelo,
+            "cantidad_de_cilindros":dataForm.cilindros,
+            "cilindrage": dataForm.cilindrage,
+            "segmento": dataForm.segmento,
         }
     };
 
@@ -46,7 +47,7 @@ app.get('/motos', (req, res) => {
         axios.post('https://api.hubapi.com/crm/v3/objects/2-42707827', data, { headers })
             .then(response => {
                 console.log(response.data);
-                res.redirect('back');
+                res.redirect('/listMotos');
             })
             .catch(error => {
                 console.error(error);
@@ -57,7 +58,7 @@ app.get('/motos', (req, res) => {
 
 });
 
-app.get('/motos', async (req, res) => {
+app.get('/listMotos', async (req, res) => {
     const motos = 'https://api.hubspot.com/crm/v3/objects/2-42707827';
     const headers = {
         Authorization: `Bearer ${hubspotKey}`,
@@ -66,7 +67,7 @@ app.get('/motos', async (req, res) => {
     try {
         const resp = await axios.get(motos, { headers });
         const data = resp.data.results;
-        res.render('Motos', { title: 'Motos | HubSpot APIs', data });
+        res.render('listMotos', { title: 'Lista de motos | HubSpot APIs', data });
     } catch (error) {
         console.error(error);
     }
