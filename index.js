@@ -12,7 +12,24 @@ app.use(express.json());
 const hubspotKey=process.env.HUBSPOTKEY;
 
 app.get('/', (req, res) => {
-    res.render('Motos', { title: 'Custom Objects Motos | HubSpot APIs',method:"post",path:"/motos",moto:{} });
+    const contacts= 'https://api.hubspot.com/crm/v3/objects/contacts?properties=firstname,lastname,email';
+    const headers = {
+        Authorization: `Bearer ${hubspotKey}`,
+        'Content-Type': 'application/json'
+    }
+    try {
+        axios.get(contacts, { headers })
+            .then(response => {
+                const data = response.data.results;
+                res.render('Motos', { title: 'Custom Objects Motos | HubSpot APIs', path:"/motos",method:"post",data:data });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    } catch (error) {
+        res.render('Motos', { title: 'Error de carga | HubSpot APIs', message: 'Error al cargar los datos de los contactos' });
+        console.error(error);
+    }
 });
 
 app.get('/edit/:id', async (req, res) => {

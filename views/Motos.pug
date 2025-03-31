@@ -30,7 +30,10 @@ html
             if method=="post"
                 div 
                     label(for="idContacto") Id del Contacto:
-                    input(type="text" id="idContacto" name="idContacto" required )
+                    select(id="idContacto" name="idContacto" required)
+                        each contact in data
+                            option(value=contact.id)= contact.properties.firstname + " " + contact.properties.lastname
+                    
             div
                 button(type="submit") Enviar
             div
